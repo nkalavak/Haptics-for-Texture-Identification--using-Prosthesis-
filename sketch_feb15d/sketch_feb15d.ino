@@ -4,7 +4,7 @@ const int PIEZO_PIN = A0; // Piezo output
 void setup() 
 { 
   
-  Serial.begin(9600);
+  Serial.begin(115200);
 } 
 
 void loop() {
