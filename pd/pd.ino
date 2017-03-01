@@ -1,7 +1,7 @@
 //Peak Detect and Running Average for EE 589 Project
 
 //variables for peak detect
-int delta=45; //Step size for detection, change for diff type of signals
+int delta=5; //Step size for detection, change for diff type of signals
 float min_=10000; //Want to start well above 4096 to ensure min and max initial detect
 float max_=-10000;
 int min_ind=0; //indexing for testing only
