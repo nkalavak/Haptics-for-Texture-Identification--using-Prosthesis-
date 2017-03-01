@@ -1,7 +1,7 @@
 //Peak Detect and Running Average for EE 589 Project
 
 //variables for peak detect
-int delta=50; //Step size for detection, change for diff type of signals
+int delta=45; //Step size for detection, change for diff type of signals
 float min_=10000; //Want to start well above 4096 to ensure min and max initial detect
 float max_=-10000;
 int min_ind=0; //indexing for testing only
@@ -20,6 +20,9 @@ int values[num_samples];//array for storing values
 int Index=0; //indexing for array
 int average=0;//holder for average values
 int value_sum=0;//sum of value array
+const int analogOutPin = 3;
+int olddata=0;
+int err_count;
 void setup() {
   // put your setup code here, to run once:
 Serial.begin(115200);
@@ -68,18 +71,35 @@ if (data<min_){
   }
 
 average=value_sum/num_samples;
+//outputValue = map(sensorValue, 0, 1023, 0, 255);
+  // change the analog out value:
 
+
+if (olddata==average){
+  err_count++;
+}
+if (err_count==50){
+  average=0;
+  err_count=0;
+}
+
+
+olddata=average;
+analogWrite(analogOutPin, 5*average);
+
+  
 ind++;
 count++;
   Serial.print(data);
   Serial.print(',');
   Serial.print(maxtab_max);
   Serial.print(',');
-  Serial.print(maxtab_pos);
-  Serial.print(',');
-  Serial.print(count);
-  Serial.print(',');
-  Serial.println(average);
+  
+  Serial.println(mintab_min);
+ // Serial.print(',');
+  //Serial.print(count);
+  //Serial.print(',');
+  //Serial.println(average);
 delay(100);// delay for 100 for troubleshooting
 
 }
