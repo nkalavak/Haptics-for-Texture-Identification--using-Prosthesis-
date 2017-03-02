@@ -1,6 +1,7 @@
 //Peak Detect and Running Average for EE 589 Project
 
-//variables for peak detect
+//variables for peak detection
+
 int delta=5; //Step size for detection, change for diff type of signals
 float min_=10000; //Want to start well above 4096 to ensure min and max initial detect
 float max_=-10000;
@@ -15,7 +16,7 @@ float mintab_pos=0;
 int ind=1;
 int data;
 int count=0;
-const int num_samples=250;
+const int num_samples = 25;
 int values[num_samples];//array for storing values
 int Index=0; //indexing for array
 int average=0;//holder for average values
@@ -23,15 +24,22 @@ int value_sum=0;//sum of value array
 const int analogOutPin = 3;
 int olddata=0;
 int err_count;
+const int FSR_PIN = A2; //Force sensor
+const float VCC = 5;
+const float R_DIV = 4700; //Value of resistor
+
+//Initialize variables
 void setup() {
   // put your setup code here, to run once:
 Serial.begin(115200);
+pinMode(FSR_PIN, INPUT);
 
 }
 
-void loop() {
 
-  
+//runs on an infinite loop
+void loop() {
+ int fsrADC = analogRead(FSR_PIN);
   // put your main code here, to run repeatedly:
 data=analogRead(sensorPin);
 //Start Peak Detect, saves min and max values as well as their indices for testing
@@ -88,6 +96,12 @@ while(data<.07){data=analogRead(sensorPin);}
 olddata=average;
 analogWrite(analogOutPin, 5*average);
 
+if(fsrADC != 0 )
+{
+  float fsrV = fsrADC *VCC / 1023.0; // Use ADC reading to calculate voltage
+  Serial.print (fsrV);  
+}
+
   
 ind++;
 count++;
@@ -101,7 +115,7 @@ count++;
   //Serial.print(count);
   Serial.print(',');
   Serial.println(average);
-delay(100);// delay for 100 for troubleshooting
+delay(10);// delay for 100 for troubleshooting
 
 }
 
