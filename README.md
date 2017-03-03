@@ -12,7 +12,9 @@ The hardware setup is as shown below:
 The different textures developed for the purpose of the project are indicated in the following figure:
 ![textures](https://cloud.githubusercontent.com/assets/17557547/23541214/c22f6e7c-ff9a-11e6-91ad-e9b759e632d6.jpg)
 
-References
+## References
+
+
 [1]	U. Wijk and I. Carlsson, “Forearm amputees’ views of prosthesis use and sensory feedback,” J. Hand Ther., vol. 28, no. 3, pp. 269–77; quiz 278, Jul. 2015.
 [2]	C. M. Oddo et al., “Intraneural stimulation elicits discrimination of textural features by artificial fingertip in intact and amputee humans,” Elife, vol. 5, p. e09148, Mar. 2016.
 [3]	M. D’Alonzo, F. Clemente, and C. Cipriani, “Vibrotactile stimulation promotes embodiment of an alien hand in amputees with phantom sensations,” IEEE Trans. Neural Syst. Rehabil. Eng., vol. 23, no. 3, pp. 450–457, May 2015.
