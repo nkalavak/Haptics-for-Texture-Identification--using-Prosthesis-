@@ -14,34 +14,39 @@ float maxtab_max=0;
 float mintab_min=0;
 float mintab_pos=0;
 int ind=1;
-int data;
+float data;
 int count=0;
 const int num_samples = 25;
 int values[num_samples];//array for storing values
 int Index=0; //indexing for array
-int average=0;//holder for average values
+float average=0.0;//holder for average values
 int value_sum=0;//sum of value array
 const int analogOutPin = 3;
-int olddata=0;
+float olddata=0.0;
 int err_count;
 const int FSR_PIN = A2; //Force sensor
 const float VCC = 5;
 const float R_DIV = 4700; //Value of resistor
+float fsrV;
 
 //Initialize variables
 void setup() {
   // put your setup code here, to run once:
 Serial.begin(115200);
 pinMode(FSR_PIN, INPUT);
+pinMode(sensorPin, INPUT);
+pinMode(analogOutPin, OUTPUT);
 
 }
 
 
 //runs on an infinite loop
 void loop() {
- int fsrADC = analogRead(FSR_PIN);
+  int fsrADC = analogRead(FSR_PIN);
   // put your main code here, to run repeatedly:
-data=analogRead(sensorPin);
+  data=analogRead(sensorPin);
+  
+ 
 //Start Peak Detect, saves min and max values as well as their indices for testing
   if (data>max_){
       max_=data;
@@ -91,30 +96,39 @@ average=value_sum/num_samples;
   //err_count=0;
 //}
 
-while(data<.07){data=analogRead(sensorPin);}
+while(data<.7)
+{
+  data=analogRead(sensorPin);//data<0.7;sensorpin
+}
+
+/*while(fsrV == 0.0)
+{
+  fsrV=analogRead(FSR_PIN);
+  if(fsrADC != 0 )
+  {
+    fsrV = fsrADC *VCC / 1023.0; // Use ADC reading to calculate voltage
+     
+  }
+}*/
 
 olddata=average;
 analogWrite(analogOutPin, 5*average);
 
-if(fsrADC != 0 )
-{
-  float fsrV = fsrADC *VCC / 1023.0; // Use ADC reading to calculate voltage
-  Serial.print (fsrV);  
-}
 
   
 ind++;
 count++;
   Serial.print(data);
-  Serial.print(',');
-  Serial.print(maxtab_max);
-  Serial.print(',');
-  
-  Serial.print(mintab_min);
- // Serial.print(',');
+  //Serial.print(',');
+  //Serial.print(maxtab_max);
+  //Serial.print(',');
+  //Serial.println(fsrV);
+  //Serial.print(mintab_min);
+  //Serial.print(',');
   //Serial.print(count);
-  Serial.print(',');
-  Serial.println(average);
+  //Serial.print(',');
+  //Serial.println(average);
+   
 delay(10);// delay for 100 for troubleshooting
 
 }
