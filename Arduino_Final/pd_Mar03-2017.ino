@@ -23,19 +23,15 @@ float average=0.0;//holder for average values
 int value_sum=0;//sum of value array
 const int analogOutPin = 3;
 float olddata=0.0;
-int err_count;
-const int FSR_PIN = A4; //Force sensor
-const float VCC = 5;
-const float R_DIV = 4700; //Value of resistor
-float fsrV;
-int fsrADC;
+//int err_count;
 
 //Initialize variables
 void setup() {
   // put your setup code here, to run once:
 Serial.begin(115200);
-pinMode(FSR_PIN, INPUT);
+//Pin for sensor
 pinMode(sensorPin, INPUT);
+//Pin for motor
 pinMode(analogOutPin, OUTPUT);
 
 }
@@ -47,7 +43,6 @@ void loop() {
 
   // put your main code here, to run repeatedly:
 data=analogRead(sensorPin);
-
 
 //Start Peak Detect, saves min and max values as well as their indices for testing
   if (data>max_){
@@ -116,7 +111,6 @@ count++;
  Serial.print(',');
   //Serial.print(maxtab_max);
   Serial.print(',');
-  //Serial.println(fsrV);
   //Serial.print(mintab_min);
   //Serial.print(',');
   //Serial.print(count);
